@@ -1,8 +1,8 @@
-import Page from "../components/page";
+import PageContainer from "../container/pageContainer";
 import { initializeStore } from "../store";
 
 export default function SSR() {
-  return <Page />;
+  return <PageContainer />;
 }
 
 // The date returned here will be different for every request that hits the page,
@@ -10,13 +10,6 @@ export default function SSR() {
 // exported when you use `getServerSideProps` or `getInitialProps`
 export function getServerSideProps() {
   const reduxStore = initializeStore();
-  const { dispatch } = reduxStore;
-
-  dispatch({
-    type: "TICK",
-    light: false,
-    lastUpdate: Date.now(),
-  });
 
   return { props: { initialReduxState: reduxStore.getState() } };
 }
